@@ -122,8 +122,8 @@ def getprecautionDict():
 
 
 def getInfo():
-    print("-----------------------------------HealthCare ChatBot-----------------------------------")
-    print("\nYour Name? \t\t\t\t",end="->")
+    print("Welcome to Medical Chatbot")
+    print("\nKindly Enter your Name to continue? \t\t\t\t",end="->")
     name=input("")
     print("Hello, ",name)
 
@@ -267,7 +267,7 @@ getDescription()
 getprecautionDict()
 getInfo()
 tree_to_code(clf,cols)
-print("----------------------------------------------------------------------------------------")
+print("End of Conversation: ")
 
 
 
