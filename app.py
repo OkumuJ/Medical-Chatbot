@@ -39,10 +39,7 @@ testy    = le.transform(testy)
 
 clf1  = DecisionTreeClassifier()
 clf = clf1.fit(x_train,y_train)
-# print(clf.score(x_train,y_train))
-# print ("cross result========")
 scores = cross_val_score(clf, x_test, y_test, cv=3)
-# print (scores)
 print (scores.mean())
 
 
@@ -186,10 +183,6 @@ def tree_to_code(tree, feature_names):
 
             disease_input=cnf_dis[conf_inp]
             break
-            # print("Did you mean: ",cnf_dis,"?(yes/no) :",end="")
-            # conf_inp = input("")
-            # if(conf_inp=="yes"):
-            #     break
         else:
             print("Enter valid symptom.")
 
@@ -216,13 +209,8 @@ def tree_to_code(tree, feature_names):
                 recurse(tree_.children_right[node], depth + 1)
         else:
             present_disease = print_disease(tree_.value[node])
-            # print( "You may have " +  present_disease )
             red_cols = reduced_data.columns 
             symptoms_given = red_cols[reduced_data.loc[present_disease].values[0].nonzero()]
-            # dis_list=list(symptoms_present)
-            # if len(dis_list)!=0:
-            #     print("symptoms present  " + str(list(symptoms_present)))
-            # print("symptoms given "  +  str(list(symptoms_given)) )
             print("Are you experiencing any ")
             symptoms_exp=[]
             for syms in list(symptoms_given):
@@ -238,28 +226,21 @@ def tree_to_code(tree, feature_names):
                     symptoms_exp.append(syms)
 
             second_prediction=sec_predict(symptoms_exp)
-            # print(second_prediction)
             calc_condition(symptoms_exp,num_days)
             if(present_disease[0]==second_prediction[0]):
                 print("You may have ", present_disease[0])
                 print(description_list[present_disease[0]])
-
-                # readn(f"You may have {present_disease[0]}")
-                # readn(f"{description_list[present_disease[0]]}")
 
             else:
                 print("You may have ", present_disease[0], "or ", second_prediction[0])
                 print(description_list[present_disease[0]])
                 print(description_list[second_prediction[0]])
 
-            # print(description_list[present_disease[0]])
             precution_list=precautionDictionary[present_disease[0]]
             print("Take following measures : ")
             for  i,j in enumerate(precution_list):
                 print(i+1,")",j)
 
-            # confidence_level = (1.0*len(symptoms_present))/len(symptoms_given)
-            # print("confidence level is " + str(confidence_level))
 
     recurse(0, 1)
 getSeverityDict()
@@ -267,28 +248,7 @@ getDescription()
 getprecautionDict()
 getInfo()
 tree_to_code(clf,cols)
-print("End of Conversation: ")
+print("Thank you for using our service. Welcome Again next time")
 
-
-
-@app.route("/")
-def index():
-    return render_template('chat.html')
-
-
-
-@app.route("/get", methods=["GET", "POST"])
-def chat():
-    msg = request.form["msg"]
-    input = msg
-    print(input)
-    result=({"query": input})
-    print("Response : ", result["result"])
-    return str(result["result"])
-
-
-
-if __name__ == '__main__':
-    app.run(debug= True)
 
 
